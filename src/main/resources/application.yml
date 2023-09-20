@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    database: mysql
+
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  access-token-exp: ${JWT_ACCESS_TOKEN_EXP}
+  refresh-token-exp: ${JWT_REFRESH_TOKEN_EXP}
+  header: "Authorization"
+  prefix:
