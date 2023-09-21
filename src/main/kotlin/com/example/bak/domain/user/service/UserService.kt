@@ -1,6 +1,6 @@
 package com.example.bak.domain.user.service
 
-import com.example.bak.domain.user.UserRepository
+import com.example.bak.domain.user.repository.UserRepository
 import com.example.bak.domain.user.controller.dto.TokenResponse
 import com.example.bak.domain.user.controller.dto.request.ReissueRequest
 import com.example.bak.domain.user.controller.dto.request.UserLoginRequest
