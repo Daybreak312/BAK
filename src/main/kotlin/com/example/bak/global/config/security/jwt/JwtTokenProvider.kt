@@ -58,7 +58,6 @@ class JwtTokenProvider(
     private fun generateRefreshToken(accountId: String): String {
         return Jwts.builder()
             .signWith(SignatureAlgorithm.HS256, jwtProperty.secretKey)
-            .setSubject(accountId)
             .setIssuedAt(Date())
             .setExpiration(Date(Date().time + jwtProperty.refreshTokenExp))
             .compact()
@@ -88,6 +87,6 @@ class JwtTokenProvider(
         if (tokenBodyClaims.expiration.before(Date()))
             throw ExpiredTokenException // 토큰이 만료되었을 경우
 
-        return tokenBodyClaims.subject
+        return tokenBodyClaims.subject ?: throw InvalidTokenException
     }
 }
