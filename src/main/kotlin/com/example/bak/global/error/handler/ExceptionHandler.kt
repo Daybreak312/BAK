@@ -17,7 +17,7 @@ class ExceptionHandler {
         .body(ErrorResponse(e.errorCode.status.value(), e.errorCode.message))
 
     @ExceptionHandler(Exception::class)
-    fun exceptionHandler() = ResponseEntity
+    fun exceptionHandler(e: Exception) = ResponseEntity
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .body(ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR.status.value(), ErrorCode.INTERNAL_SERVER_ERROR.message))
+        .body(ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR.status.value(), e.message))
 }

@@ -4,7 +4,7 @@ import com.example.bak.domain.user.entity.User
 import com.example.bak.global.base.BaseTimeEntity
 import javax.persistence.*
 
-@Entity
+@Entity(name = "tbl_board")
 class Board(
 
     @Column(name = "title", length = 50, nullable = false)

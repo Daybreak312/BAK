@@ -4,7 +4,7 @@ import com.example.bak.domain.board.entity.Board
 import com.example.bak.domain.user.entity.role.Role
 import javax.persistence.*
 
-@Entity
+@Entity(name = "tbl_user")
 class User(
 
     @Column(name = "account_id", nullable = false)

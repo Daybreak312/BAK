@@ -14,9 +14,7 @@ class BoardService(
     private val userProvider: UserProvider
 ) {
 
-    fun addBoard(
-        request: BoardAddRequest
-    ) {
+    fun addBoard(request: BoardAddRequest) {
         boardRepository.save(
             Board(
                 title = request.title,
