@@ -42,12 +42,12 @@ class SecurityConfig(
             .and()
 
             .authorizeRequests()
-            .antMatchers("/auth/*").permitAll()
-            .antMatchers("/mail/*").permitAll()
+            .antMatchers("/auth/**").permitAll()
             .anyRequest().authenticated()
             .and()
 
-            .apply(FilterConfig(jwtTokenProvider, objectMapper, userDetailService)).and()
+            .apply(FilterConfig(jwtTokenProvider, objectMapper, userDetailService))
+            .and()
 
             .build()
     }

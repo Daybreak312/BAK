@@ -54,6 +54,6 @@ class UserService(
     }
 
     fun reissue(request: ReissueRequest): TokenResponse {
-        return jwtTokenProvider.reissue(request.refreshToken)
+        return jwtTokenProvider.reissue(request.token)
     }
 }

@@ -7,6 +7,7 @@ import com.example.bak.global.config.security.jwt.env.JwtProperty
 import com.example.bak.global.exception.ExpiredTokenException
 import com.example.bak.global.exception.InvalidTokenException
 import com.example.bak.global.exception.NotBearerTokenException
+import com.example.bak.global.exception.TokenIsNullException
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
@@ -39,7 +40,7 @@ class JwtTokenProvider(
 
     fun reissue(token: String): TokenResponse {
 
-        val refreshToken = refreshTokenRepository.findByToken(token)?: throw InvalidTokenException
+        val refreshToken: RefreshToken = refreshTokenRepository.findByToken(token) ?: throw InvalidTokenException
         refreshTokenRepository.deleteById(refreshToken.accountId)
 
         return createToken(refreshToken.accountId)
@@ -65,7 +66,9 @@ class JwtTokenProvider(
 
     fun resolveToken(request: HttpServletRequest): String {
 
-        val token: String = request.getHeader(jwtProperty.header)
+        val token: String? = request.getHeader(jwtProperty.header)
+        if (token.isNullOrBlank())
+            throw TokenIsNullException
 
         if (token.startsWith(jwtProperty.prefix) && token.length > jwtProperty.prefix.length)
             return token.substring(7)

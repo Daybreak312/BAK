@@ -12,6 +12,7 @@ enum class ErrorCode(
     USER_PASSWORD_MISMATCH(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
 
     // 403
+    TOKEN_IS_NULL(HttpStatus.FORBIDDEN, "토큰이 없습니다."),
     INVALID_TOKEN(HttpStatus.FORBIDDEN, "유효하지 않은 토큰입니다."),
     NOT_BEARER_TOKEN(HttpStatus.FORBIDDEN, "Bearer JWT 토큰이 아닙니다."),
     EXPIRED_TOKEN(HttpStatus.FORBIDDEN, "만료된 토큰입니다."),
