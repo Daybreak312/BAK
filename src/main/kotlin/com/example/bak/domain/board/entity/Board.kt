@@ -9,7 +9,7 @@ import javax.persistence.*
 @Where(clause = "deleted = false")
 @SQLDelete(sql = "UPDATE tbl_board SET deleted = true WHERE id = ?")
 @Entity(name = "tbl_board")
-class Board(
+data class Board(
 
     @Column(name = "title", length = 50, nullable = false)
     var title: String,
