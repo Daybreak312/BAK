@@ -10,6 +10,7 @@ enum class ErrorCode(
     // 400
     USER_PASSWORD_CHECK_FAIL(HttpStatus.BAD_REQUEST, "비밀번호와 비밀번호 확인이 일치하지 않습니다."),
     USER_PASSWORD_MISMATCH(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
+    NO_PERMISSION(HttpStatus.FORBIDDEN, "권한이 없습니다."),
 
     // 403
     TOKEN_IS_NULL(HttpStatus.FORBIDDEN, "토큰이 없습니다."),
@@ -20,7 +21,7 @@ enum class ErrorCode(
     // 404
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "유저를 찾을 수 없습니다."),
 
-    // 409
+    // BOARD
     ACCOUNT_ID_ALREADY_EXISTS(HttpStatus.CONFLICT, "사용하려는 아이디가 이미 존재합니다."),
 
     // 500
