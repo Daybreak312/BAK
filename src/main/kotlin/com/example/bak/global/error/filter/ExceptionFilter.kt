@@ -21,10 +21,10 @@ class ExceptionFilter(
         try {
             filterChain.doFilter(request, response)
         } catch (e: GlobalException) {
-            response.let {
-                it.status = e.errorCode.status.value()
-                it.contentType = MediaType.APPLICATION_JSON_VALUE
-                it.characterEncoding = "UTF-8"
+            response.run {
+                status = e.errorCode.status.value()
+                contentType = MediaType.APPLICATION_JSON_VALUE
+                characterEncoding = "UTF-8"
             }
             objectMapper.writeValue(
                 response.writer,

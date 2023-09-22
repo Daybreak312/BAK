@@ -23,17 +23,17 @@ class JwtFilter(
     ) {
 
         logger.info("* LOG | Jwt Filter run | ${request.method} ${request.requestURL}")
+
         if (!request.requestURI.startsWith("/auth")) {
 
             val token: String = jwtTokenProvider.resolveToken(request)
 
             val accountId: String = jwtTokenProvider.getAccountId(token)
 
-            val authentication: Authentication = UsernamePasswordAuthenticationToken(
-                accountId, "", userDetailService.loadUserByUsername(accountId).authorities
-            )
-
-            SecurityContextHolder.getContext().authentication = authentication
+            SecurityContextHolder.getContext().authentication =
+                UsernamePasswordAuthenticationToken(
+                    accountId, "", userDetailService.loadUserByUsername(accountId).authorities
+                )
         }
 
         filterChain.doFilter(request, response)

@@ -24,7 +24,7 @@ class User(
     var boards: List<Board> = ArrayList(),
 
     @Id
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
 )
