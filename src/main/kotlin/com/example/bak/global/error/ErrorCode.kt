@@ -21,6 +21,10 @@ enum class ErrorCode(
     // BOARD
     BOARD_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다."),
 
+    // CHAT
+    CHAT_MESSAGE_NULL(HttpStatus.BAD_REQUEST, "채팅 내용이 비어있습니다."),
+    CHAT_SENDTO_NULL(HttpStatus.BAD_REQUEST, "채팅을 전달할 대상이 필요합니다."),
+
     // SERVER
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에서 처리되지 않은 오류입니다.")
 }

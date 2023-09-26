@@ -40,8 +40,11 @@ dependencies {
     // jackson
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-    // Devtools
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    // socket
+    implementation("org.springframework.boot:spring-boot-starter-websocket")
+
+    // logging
+    implementation("io.github.microutils:kotlin-logging-jvm:2.0.10")
 
     // Data Base
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
