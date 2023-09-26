@@ -15,8 +15,8 @@ enum class ErrorCode(
     NO_PERMISSION(HttpStatus.FORBIDDEN, "권한이 없습니다."),
 
     // TOKEN
-    INVALID_TOKEN(HttpStatus.FORBIDDEN, "유효하지 않은 토큰입니다."),
-    EXPIRED_TOKEN(HttpStatus.FORBIDDEN, "토큰이 만료되었습니다."),
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다."),
+    EXPIRED_TOKEN(HttpStatus.UNAUTHORIZED, "토큰이 만료되었습니다."),
 
     // BOARD
     BOARD_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다."),

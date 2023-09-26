@@ -1,4 +1,4 @@
-package com.example.mukgen.global.config
+package com.example.bak.global.config
 
 import com.example.bak.global.config.security.auth.CustomUserDetailService
 import com.example.bak.global.config.security.jwt.JwtFilter

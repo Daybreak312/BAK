@@ -2,7 +2,7 @@ package com.example.bak.global.config.security
 
 import com.example.bak.global.config.security.auth.CustomUserDetailService
 import com.example.bak.global.config.security.jwt.JwtTokenProvider
-import com.example.mukgen.global.config.FilterConfig
+import com.example.bak.global.config.FilterConfig
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
