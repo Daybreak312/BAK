@@ -12,7 +12,6 @@ import com.example.bak.domain.chat.service.exception.ChatRoomNotFoundException
 import com.example.bak.domain.chat.service.exception.ChatSendRoomNullException
 import com.example.bak.domain.user.entity.User
 import com.example.bak.domain.user.repository.UserRepository
-import com.example.bak.domain.user.service.UserProvider
 import com.example.bak.domain.user.service.exception.UserNotFoundException
 import com.example.bak.global.config.socket.ServerEndpointConfigurator
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -73,11 +72,13 @@ class ChatSocketService(
 
         val sender: User = userRepository.findByAccountId(session.userPrincipal.name) ?: throw UserNotFoundException
         // userProvider (userFacade)의 currentUser 메소드 사용시 SecurityContext의 Authentication이 null로 떠서 임시로 대체.
+
         val chatRoom: ChatRoom = chatRoomRepository.findByIdOrNull(dto.chatRoom) ?: throw ChatRoomNotFoundException
-        val receiveUserAccountIdList: List<String> =
-            chatRoomJoinerRepository.findAllByChatRoom(chatRoom).map { it.user.accountId }
+
         val receiveClients: List<Session> =
-            receiveUserAccountIdList.map { accountId: String -> clients.first { client: Session -> client.userPrincipal.name == accountId } }.filter { it.userPrincipal.name != sender.accountId }
+            chatRoomJoinerRepository.findAllByChatRoom(chatRoom) // join용 entity 리스트
+                .map { joiner -> clients.first { it.userPrincipal.name == joiner.user.accountId } }
+        // joiner 리스트로부터 추출한 user의 accountId와 일치하는 session들을 리스트로 추출
 
         val chat = Chat(
             sender = sender,
