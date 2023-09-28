@@ -5,7 +5,7 @@ import com.example.bak.domain.chat.entity.ChatRoomJoiner
 import com.example.bak.domain.user.entity.User
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface ChatRoomJoinerRepository : JpaRepository<ChatRoomJoiner, Long?> {
+interface ChatRoomJoinerRepository : JpaRepository<ChatRoomJoiner, ChatRoomJoiner.IdClass> {
 
     fun findAllByChatRoom(chatRoom: ChatRoom): List<ChatRoomJoiner>
 

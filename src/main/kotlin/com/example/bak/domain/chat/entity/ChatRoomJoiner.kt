@@ -1,20 +1,32 @@
 package com.example.bak.domain.chat.entity
 
-import com.example.bak.domain.chat.entity.idclass.ChatRoomJoinerId
 import com.example.bak.domain.user.entity.User
+import java.io.Serializable
 import javax.persistence.*
 
-@IdClass(ChatRoomJoinerId::class)
+@IdClass(ChatRoomJoiner.IdClass::class)
 @Entity(name = "tbl_room_joiner")
-data class ChatRoomJoiner   (
-
-    @Id
-    @OneToOne
+open class ChatRoomJoiner   (
+    room: ChatRoom,
+    user: User
+) {
+    @Id @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
-    val chatRoom: ChatRoom,
+    var chatRoom: ChatRoom = room
+        protected set
 
-    @Id
-    @OneToOne
+    @Id @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    val user: User
-)
+    var user: User = user
+        protected set
+
+    data class IdClass (
+        var chatRoom: Long? = null,
+        var user: Long? = null
+    ): Serializable
+
+    fun id() = IdClass(
+        this.chatRoom.id,
+        this.user.id
+    )
+}

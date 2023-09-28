@@ -1,11 +1,15 @@
 package com.example.bak.domain.user.entity
 
 import com.example.bak.domain.board.entity.Board
+import com.example.bak.domain.chat.entity.ChatRoomJoiner
 import com.example.bak.domain.user.entity.role.Role
 import javax.persistence.*
 
 @Entity(name = "tbl_user")
 class User(
+
+    @OneToMany(mappedBy = "user_id")
+    var joiner: MutableList<ChatRoomJoiner> = mutableListOf(),
 
     @Column(name = "account_id", nullable = false)
     var accountId: String,
