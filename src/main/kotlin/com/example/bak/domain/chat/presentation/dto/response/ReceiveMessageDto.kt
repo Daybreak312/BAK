@@ -15,7 +15,7 @@ data class ReceiveMessageDto(
         fun of(chat: Chat): ReceiveMessageDto =
             ReceiveMessageDto(
                 message = chat.message,
-                receiveFrom = chat.sender.name,
+                receiveFrom = chat.user.name,
                 sendTime = chat.createdAt
             )
     }

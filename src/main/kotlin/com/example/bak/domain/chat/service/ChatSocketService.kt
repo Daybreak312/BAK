@@ -81,7 +81,7 @@ class ChatSocketService(
         // joiner 리스트로부터 추출한 user의 accountId와 일치하는 session들을 리스트로 추출
 
         val chat = Chat(
-            sender = sender,
+            user = sender,
             chatRoom = chatRoom,
             message = dto.message
         )

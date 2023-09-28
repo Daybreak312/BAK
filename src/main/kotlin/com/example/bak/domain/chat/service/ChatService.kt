@@ -10,6 +10,7 @@ import com.example.bak.domain.user.service.exception.UserNotFoundException
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
+@Transactional
 @Service
 class ChatService(
 
@@ -20,7 +21,6 @@ class ChatService(
     private val chatRoomJoinerRepository: ChatRoomJoinerRepository
 ) {
 
-    @Transactional
     fun createChatRoom(request: CreateChatRoomRequest) {
 
         val chatRoom = ChatRoom(name = request.chatRoomName)
