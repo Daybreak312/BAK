@@ -12,6 +12,7 @@ import com.example.bak.domain.user.service.exception.UserNotFoundException
 import com.example.bak.domain.user.service.exception.UserPasswordCheckFailException
 import com.example.bak.domain.user.service.exception.UserPasswordMismatchException
 import com.example.bak.global.config.security.jwt.JwtTokenProvider
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 

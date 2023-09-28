@@ -1,4 +1,4 @@
-package com.example.bak.domain.socket.service.exception
+package com.example.bak.domain.chat.service.exception
 
 import com.example.bak.global.error.ErrorCode
 import com.example.bak.global.error.GlobalException

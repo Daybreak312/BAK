@@ -23,7 +23,8 @@ enum class ErrorCode(
 
     // CHAT
     CHAT_MESSAGE_NULL(HttpStatus.BAD_REQUEST, "채팅 내용이 비어있습니다."),
-    CHAT_SENDTO_NULL(HttpStatus.BAD_REQUEST, "채팅을 전달할 대상이 필요합니다."),
+    CHAT_SEND_ROOM_NULL(HttpStatus.BAD_REQUEST, "채팅을 전달할 대상이 필요합니다."),
+    CHAT_ROOM_NOT_FOUND(HttpStatus.NOT_FOUND, "채팅방을 찾을 수 없습니다."),
 
     // SERVER
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에서 처리되지 않은 오류입니다.")

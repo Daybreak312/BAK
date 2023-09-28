@@ -40,14 +40,16 @@ dependencies {
     // jackson
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-    // socket
+    // chat
     implementation("org.springframework.boot:spring-boot-starter-websocket")
 
     // logging
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.10")
 
-    // Data Base
+    // jpa
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // database
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     runtimeOnly("com.mysql:mysql-connector-j")
 

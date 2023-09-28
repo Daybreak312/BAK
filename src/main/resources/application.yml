@@ -22,4 +22,4 @@ jwt:
   access-token-exp: ${JWT_ACCESS_TOKEN_EXP}
   refresh-token-exp: ${JWT_REFRESH_TOKEN_EXP}
   header: "Authorization"
-  prefix:
+  prefix: ${JWT_PREFIX}

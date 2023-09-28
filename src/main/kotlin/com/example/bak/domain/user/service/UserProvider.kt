@@ -10,6 +10,6 @@ class UserProvider(
     private val userRepository: UserRepository
 ) {
     fun currentUser(): User = userRepository.findByAccountId(
-        SecurityContextHolder.getContext().authentication!!.name
+        SecurityContextHolder.getContext().authentication.name
     )!!
 }
