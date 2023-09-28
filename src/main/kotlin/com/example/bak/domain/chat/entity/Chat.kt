@@ -3,11 +3,12 @@ package com.example.bak.domain.chat.entity
 import com.example.bak.domain.chat.entity.idclass.ChatId
 import com.example.bak.domain.user.entity.User
 import com.example.bak.global.base.BaseTimeEntity
+import java.io.Serializable
 import javax.persistence.*
 
-@IdClass(ChatId::class)
+@IdClass(Chat.IdClass::class)
 @Entity(name = "tbl_chat")
-data class Chat(
+open class Chat(
 
     @Id
     @ManyToOne
@@ -21,4 +22,15 @@ data class Chat(
 
     @Column(name = "message", nullable = false)
     val message: String
-) : BaseTimeEntity()
+) : BaseTimeEntity() {
+
+    data class IdClass (
+        var chatRoom: Long? = null,
+        var user: Long? = null
+    ): Serializable
+
+    fun id() = IdClass(
+        this.chatRoom.id,
+        this.user.id
+    )
+}

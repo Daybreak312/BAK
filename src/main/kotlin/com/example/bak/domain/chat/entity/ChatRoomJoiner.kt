@@ -7,18 +7,15 @@ import javax.persistence.*
 @IdClass(ChatRoomJoiner.IdClass::class)
 @Entity(name = "tbl_room_joiner")
 open class ChatRoomJoiner   (
-    room: ChatRoom,
-    user: User
-) {
+
     @Id @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
-    var chatRoom: ChatRoom = room
-        protected set
+    var chatRoom: ChatRoom,
 
     @Id @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    var user: User = user
-        protected set
+    var user: User
+) {
 
     data class IdClass (
         var chatRoom: Long? = null,
