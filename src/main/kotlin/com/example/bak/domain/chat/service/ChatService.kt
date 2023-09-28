@@ -8,10 +8,11 @@ import com.example.bak.domain.chat.presentation.dto.request.CreateChatRoomReques
 import com.example.bak.domain.user.repository.UserRepository
 import com.example.bak.domain.user.service.exception.UserNotFoundException
 import org.springframework.stereotype.Service
-import javax.transaction.Transactional
+import org.springframework.transaction.annotation.Transactional
 
-@Transactional
+
 @Service
+@Transactional(readOnly = true)
 class ChatService(
 
     private val userRepository: UserRepository,
@@ -21,18 +22,14 @@ class ChatService(
     private val chatRoomJoinerRepository: ChatRoomJoinerRepository
 ) {
 
+    @Transactional
     fun createChatRoom(request: CreateChatRoomRequest) {
 
-        val chatRoom = ChatRoom(name = request.chatRoomName)
-
-        chatRoomRepository.save(chatRoom)
+        val chatRoom = chatRoomRepository.save(ChatRoom(name = request.chatRoomName))
 
         request.accountIdList.map {
             chatRoomJoinerRepository.save(
-                ChatRoomJoiner(
-                    user = userRepository.findByAccountId(it) ?: throw UserNotFoundException,
-                    chatRoom = chatRoom
-                )
+                ChatRoomJoiner(chatRoom, userRepository.findByAccountId(it) ?: throw UserNotFoundException)
             )
         }
     }
