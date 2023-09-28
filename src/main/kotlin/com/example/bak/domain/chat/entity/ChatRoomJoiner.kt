@@ -6,7 +6,7 @@ import javax.persistence.*
 
 @IdClass(ChatRoomJoiner.IdClass::class)
 @Entity(name = "tbl_room_joiner")
-open class ChatRoomJoiner   (
+open class ChatRoomJoiner(
 
     @Id @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
@@ -17,10 +17,10 @@ open class ChatRoomJoiner   (
     var user: User
 ) {
 
-    data class IdClass (
+    data class IdClass(
         var chatRoom: Long? = null,
         var user: Long? = null
-    ): Serializable
+    ) : Serializable
 
     fun id() = IdClass(
         this.chatRoom.id,

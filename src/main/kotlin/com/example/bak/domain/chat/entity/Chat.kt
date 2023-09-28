@@ -1,6 +1,5 @@
 package com.example.bak.domain.chat.entity
 
-import com.example.bak.domain.chat.entity.idclass.ChatId
 import com.example.bak.domain.user.entity.User
 import com.example.bak.global.base.BaseTimeEntity
 import java.io.Serializable
@@ -24,10 +23,10 @@ open class Chat(
     val message: String
 ) : BaseTimeEntity() {
 
-    data class IdClass (
+    data class IdClass(
         var chatRoom: Long? = null,
         var user: Long? = null
-    ): Serializable
+    ) : Serializable
 
     fun id() = IdClass(
         this.chatRoom.id,
