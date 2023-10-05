@@ -8,9 +8,6 @@ import javax.persistence.*
 @Entity(name = "tbl_user")
 class User(
 
-    @OneToMany(mappedBy = "user")
-    var joiner: MutableList<ChatRoomJoiner> = mutableListOf(),
-
     @Column(name = "account_id", nullable = false)
     var accountId: String,
 

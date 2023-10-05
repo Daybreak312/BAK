@@ -7,7 +7,7 @@ import javax.persistence.*
 
 @IdClass(Chat.IdClass::class)
 @Entity(name = "tbl_chat")
-open class Chat(
+class Chat(
 
     @Id
     @ManyToOne
@@ -28,7 +28,7 @@ open class Chat(
         var user: Long? = null
     ) : Serializable
 
-    fun id() = IdClass(
+    private fun id() = IdClass(
         this.chatRoom.id,
         this.user.id
     )

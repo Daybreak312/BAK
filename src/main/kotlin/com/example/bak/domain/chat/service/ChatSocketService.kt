@@ -71,30 +71,27 @@ class ChatSocketService(
         dto.message ?: throw ChatMessageNullException
 
         val sender: User = userRepository.findByAccountId(session.userPrincipal.name) ?: throw UserNotFoundException
-        // userProvider (userFacade)의 currentUser 메소드 사용시 SecurityContext의 Authentication이 null로 떠서 임시로 대체.
 
         val chatRoom: ChatRoom = chatRoomRepository.findByIdOrNull(dto.chatRoom) ?: throw ChatRoomNotFoundException
 
         val receiveClients: List<Session> =
             chatRoomJoinerRepository.findAllByChatRoom(chatRoom) // join용 entity 리스트
                 .map { joiner -> clients.first { it.userPrincipal.name == joiner.user.accountId } }
+                .filter { it.userPrincipal.name != sender.accountId }
         // joiner 리스트로부터 추출한 user의 accountId와 일치하는 session들을 리스트로 추출
 
-        val chat = Chat(
-            user = sender,
-            chatRoom = chatRoom,
-            message = dto.message
+        logger.info("${chatRoom.name} - id \"${chatRoom.id}\" : will receive.")
+
+        val chat = chatRepository.save(
+            Chat(
+                user = sender,
+                chatRoom = chatRoom,
+                message = dto.message
+            )
         )
 
-        logger.info("$chatRoom : will receive.")
+        val writtenChat = objectMapper.writeValueAsString(ReceiveMessageDto.of(chat))
 
-        receiveClients.map {
-            it.basicRemote.sendText(
-                objectMapper.writeValueAsString(
-                    ReceiveMessageDto.of(chat)
-                )
-            )
-        }
-        chatRepository.save(chat)
+        receiveClients.map { it.basicRemote.sendText(writtenChat) }
     }
 }
