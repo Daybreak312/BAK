@@ -26,6 +26,8 @@ class JwtFilter(
 
         if (!request.requestURI.startsWith("/auth")) {
 
+            logger.info("* LOG | Jwt Filter logic run")
+
             val token: String = jwtTokenProvider.resolveToken(request)
 
             val accountId: String = jwtTokenProvider.getAccountId(token)

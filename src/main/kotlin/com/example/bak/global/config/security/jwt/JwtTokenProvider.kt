@@ -61,7 +61,6 @@ class JwtTokenProvider(
 
         val token: String = request.getHeader(jwtProperty.header)?: throw InvalidTokenException
 
-        println(jwtProperty.prefix)
         if (token.startsWith(jwtProperty.prefix) && token.length > jwtProperty.prefix.length)
             return token.substring(7)
         throw InvalidTokenException
