@@ -4,18 +4,18 @@ import com.example.bak.domain.board.entity.Board
 import java.time.LocalDateTime
 
 data class BoardMinimumResponse(
+    val boardId: Long,
     val title: String,
-    val content: String,
     val createdAt: LocalDateTime,
     val userName: String
 ) {
     companion object {
 
         fun of(board: Board): BoardMinimumResponse =
-            with(board) {
+            board.run {
                 BoardMinimumResponse(
+                    boardId = id!!,
                     title = title,
-                    content = content,
                     createdAt = createdAt,
                     userName = user.name
                 )

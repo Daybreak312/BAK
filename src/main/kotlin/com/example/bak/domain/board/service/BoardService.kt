@@ -12,7 +12,6 @@ import com.example.bak.domain.user.service.exception.NoPermissionException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import kotlin.jvm.optionals.getOrNull
 
 @Service
 class BoardService(
@@ -33,7 +32,7 @@ class BoardService(
     @Transactional
     fun deleteBoard(boardId: Long) {
 
-        val board: Board = boardRepository.findById(boardId).getOrNull() ?: throw BoardNotFoundException
+        val board: Board = boardRepository.findByIdOrNull(boardId) ?: throw BoardNotFoundException
 
         if (userProvider.currentUser().accountId != board.user.accountId)
             throw NoPermissionException
@@ -42,18 +41,14 @@ class BoardService(
     }
 
     @Transactional(readOnly = true)
-    fun findBoardList(): BoardListResponse {
-
-        return BoardListResponse(
-            boardRepository.findAll().map {
-                BoardMinimumResponse.of(it)
-            }.toList()
+    fun findBoard(boardId: Long): BoardMaximumResponse =
+        BoardMaximumResponse.of(
+            boardRepository.findByIdOrNull(boardId) ?: throw BoardNotFoundException
         )
-    }
 
     @Transactional(readOnly = true)
-    fun findBoard(boardId: Long): BoardMaximumResponse {
-        val board: Board = boardRepository.findByIdOrNull(boardId) ?: throw BoardNotFoundException
-        return BoardMaximumResponse.of(board)
-    }
+    fun findBoardList(): BoardListResponse =
+        BoardListResponse(
+            boardRepository.findAll().map(BoardMinimumResponse.Companion::of).toList()
+        )
 }
