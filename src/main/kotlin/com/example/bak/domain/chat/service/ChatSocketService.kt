@@ -10,7 +10,7 @@ import com.example.bak.domain.chat.presentation.dto.response.ReceiveMessageDto
 import com.example.bak.domain.chat.service.exception.ChatMessageNullException
 import com.example.bak.domain.chat.service.exception.ChatRoomNoPermissionException
 import com.example.bak.domain.chat.service.exception.ChatRoomNotFoundException
-import com.example.bak.domain.chat.service.exception.ChatSendRoomNullException
+import com.example.bak.domain.chat.service.exception.ChatRoomNullException
 import com.example.bak.domain.user.entity.User
 import com.example.bak.domain.user.repository.UserRepository
 import com.example.bak.domain.user.service.exception.UserNotFoundException
@@ -68,7 +68,7 @@ class ChatSocketService(
         val dto: SendMessageDto = objectMapper.readValue(message, SendMessageDto::class.java)
         logger.info("new message : ${session.userPrincipal.name} - ${dto.message} to ${dto.chatRoom}")
 
-        dto.chatRoom ?: throw ChatSendRoomNullException
+        dto.chatRoom ?: throw ChatRoomNullException
         dto.message ?: throw ChatMessageNullException
 
         val sender: User = userRepository.findByAccountId(session.userPrincipal.name) ?: throw UserNotFoundException

@@ -24,7 +24,7 @@ enum class ErrorCode(
 
     // CHAT
     CHAT_MESSAGE_NULL(HttpStatus.BAD_REQUEST, "채팅 내용이 비어있습니다."),
-    CHAT_SEND_ROOM_NULL(HttpStatus.BAD_REQUEST, "채팅을 전달할 대상이 필요합니다."),
+    CHAT_ROOM_NULL(HttpStatus.BAD_REQUEST, "채팅을 전달할 대상이 필요합니다."),
     CHAT_ROOM_NOT_FOUND(HttpStatus.NOT_FOUND, "채팅방을 찾을 수 없습니다."),
     CHAT_ROOM_NO_PERMISSION(HttpStatus.FORBIDDEN, "이 채팅방에 메세지를 보낼 권한이 없습니다."),
 
