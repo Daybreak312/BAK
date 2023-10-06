@@ -1,6 +1,6 @@
 package com.example.bak.domain.board.controller
 
-import com.example.bak.domain.board.controller.dto.request.BoardAddRequest
+import com.example.bak.domain.board.controller.dto.request.BoardCreateRequest
 import com.example.bak.domain.board.controller.dto.request.BoardUpdateRequest
 import com.example.bak.domain.board.controller.dto.response.BoardListResponse
 import com.example.bak.domain.board.controller.dto.response.BoardMaximumResponse
@@ -16,8 +16,8 @@ class BoardController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun boardAdd(@RequestBody request: BoardAddRequest) {
-        boardService.addBoard(request)
+    fun boardCreate(@RequestBody request: BoardCreateRequest) {
+        boardService.createBoard(request)
     }
 
     @DeleteMapping("/{boardId}")

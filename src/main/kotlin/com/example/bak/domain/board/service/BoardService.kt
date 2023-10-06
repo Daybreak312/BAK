@@ -1,6 +1,6 @@
 package com.example.bak.domain.board.service
 
-import com.example.bak.domain.board.controller.dto.request.BoardAddRequest
+import com.example.bak.domain.board.controller.dto.request.BoardCreateRequest
 import com.example.bak.domain.board.controller.dto.request.BoardUpdateRequest
 import com.example.bak.domain.board.controller.dto.response.BoardListResponse
 import com.example.bak.domain.board.controller.dto.response.BoardMaximumResponse
@@ -10,7 +10,6 @@ import com.example.bak.domain.board.repository.BoardRepository
 import com.example.bak.domain.board.service.exception.BoardNoPermissionException
 import com.example.bak.domain.board.service.exception.BoardNotFoundException
 import com.example.bak.domain.user.service.UserProvider
-import com.example.bak.domain.user.service.exception.NoPermissionException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -24,7 +23,7 @@ class BoardService(
 ) {
 
     @Transactional
-    fun addBoard(request: BoardAddRequest) {
+    fun createBoard(request: BoardCreateRequest) {
         boardRepository.save(
             request.run {
                 Board(title, content, userProvider.currentUser())
@@ -37,7 +36,7 @@ class BoardService(
         val board: Board = boardRepository.findByIdOrNull(boardId) ?: throw BoardNotFoundException
 
         if (userProvider.currentUser().accountId != board.user.accountId)
-            throw NoPermissionException
+            throw BoardNoPermissionException
 
         boardRepository.deleteById(boardId)
     }

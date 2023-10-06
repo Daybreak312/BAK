@@ -1,6 +1,6 @@
 package com.example.bak.domain.board.controller.dto.request
 
-data class BoardAddRequest(
+data class BoardCreateRequest(
     val title: String,
     val content: String
 )
