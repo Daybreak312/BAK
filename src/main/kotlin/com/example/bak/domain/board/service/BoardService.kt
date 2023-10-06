@@ -1,11 +1,13 @@
 package com.example.bak.domain.board.service
 
 import com.example.bak.domain.board.controller.dto.request.BoardAddRequest
+import com.example.bak.domain.board.controller.dto.request.BoardUpdateRequest
 import com.example.bak.domain.board.controller.dto.response.BoardListResponse
 import com.example.bak.domain.board.controller.dto.response.BoardMaximumResponse
 import com.example.bak.domain.board.controller.dto.response.BoardMinimumResponse
 import com.example.bak.domain.board.entity.Board
 import com.example.bak.domain.board.repository.BoardRepository
+import com.example.bak.domain.board.service.exception.BoardNoPermissionException
 import com.example.bak.domain.board.service.exception.BoardNotFoundException
 import com.example.bak.domain.user.service.UserProvider
 import com.example.bak.domain.user.service.exception.NoPermissionException
@@ -38,6 +40,18 @@ class BoardService(
             throw NoPermissionException
 
         boardRepository.deleteById(boardId)
+    }
+
+    @Transactional
+    fun updateBoard(boardId: Long, request: BoardUpdateRequest) {
+
+        val board = boardRepository.findByIdOrNull(boardId) ?: throw BoardNotFoundException
+
+        if (board.user != userProvider.currentUser())
+            throw BoardNoPermissionException
+
+        request.title?.let { board.updateTitle(it) }
+        request.content?.let { board.updateContent(it) }
     }
 
     @Transactional(readOnly = true)

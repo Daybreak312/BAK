@@ -1,6 +1,7 @@
 package com.example.bak.domain.board.controller
 
 import com.example.bak.domain.board.controller.dto.request.BoardAddRequest
+import com.example.bak.domain.board.controller.dto.request.BoardUpdateRequest
 import com.example.bak.domain.board.controller.dto.response.BoardListResponse
 import com.example.bak.domain.board.controller.dto.response.BoardMaximumResponse
 import com.example.bak.domain.board.service.BoardService
@@ -22,6 +23,11 @@ class BoardController(
     @DeleteMapping("/{boardId}")
     fun boardDelete(@PathVariable boardId: Long) {
         boardService.deleteBoard(boardId)
+    }
+
+    @PutMapping("/{boardId}")
+    fun boardUpdate(@PathVariable boardId: Long, @RequestBody request: BoardUpdateRequest) {
+        boardService.updateBoard(boardId, request)
     }
 
     @GetMapping
