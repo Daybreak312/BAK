@@ -10,4 +10,6 @@ interface ChatRoomJoinerRepository : JpaRepository<ChatRoomJoiner, ChatRoomJoine
     fun findAllByChatRoom(chatRoom: ChatRoom): List<ChatRoomJoiner>
 
     fun findAllByUser(user: User): List<ChatRoomJoiner>
+
+    fun existsByChatRoomAndUser(chatRoom: ChatRoom, user: User): Boolean
 }

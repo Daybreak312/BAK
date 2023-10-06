@@ -8,6 +8,7 @@ import com.example.bak.domain.chat.persistence.ChatRoomRepository
 import com.example.bak.domain.chat.presentation.dto.request.SendMessageDto
 import com.example.bak.domain.chat.presentation.dto.response.ReceiveMessageDto
 import com.example.bak.domain.chat.service.exception.ChatMessageNullException
+import com.example.bak.domain.chat.service.exception.ChatRoomNoPermissionException
 import com.example.bak.domain.chat.service.exception.ChatRoomNotFoundException
 import com.example.bak.domain.chat.service.exception.ChatSendRoomNullException
 import com.example.bak.domain.user.entity.User
@@ -73,6 +74,9 @@ class ChatSocketService(
         val sender: User = userRepository.findByAccountId(session.userPrincipal.name) ?: throw UserNotFoundException
 
         val chatRoom: ChatRoom = chatRoomRepository.findByIdOrNull(dto.chatRoom) ?: throw ChatRoomNotFoundException
+
+        if (chatRoomJoinerRepository.existsByChatRoomAndUser(chatRoom, sender))
+            throw ChatRoomNoPermissionException
 
         val receiveClients: List<Session> =
             chatRoomJoinerRepository.findAllByChatRoom(chatRoom) // join용 entity 리스트
