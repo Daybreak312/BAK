@@ -37,6 +37,10 @@ jobs:
 
       - name: Git change branch to main
         run: git switch main
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Git merge 'develop' to 'main'
         run: git merge develop
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
