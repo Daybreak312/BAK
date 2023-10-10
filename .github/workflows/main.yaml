@@ -30,10 +30,10 @@ jobs:
           cache: 'gradle'
 
       - name: gradlew
-        run: chmod +x gradlew --warning-mode=all
+        run: chmod +x gradlew
 
       - name: Build gradle
-        run: ./gradlew build
+        run: ./gradlew --warning-mode=all build
 
       - name: Git change branch to main
         run: git switch main
