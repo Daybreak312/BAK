@@ -1,12 +1,12 @@
 name: main
 
 on:
-  pull_request:
-    branches: 'main'
+  push:
+    branches: 'develop'
 
 jobs:
-  job_main_build:
-    name: main build
+  code_build_and_merge:
+    name: code build
     runs-on: ubuntu-latest
     env:
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
@@ -19,7 +19,6 @@ jobs:
       JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
 
     steps:
-
       - name: Checkout
       - uses: actions/checkout@v3
 
@@ -33,4 +32,12 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build gradle
-        run: ./gradlew build
+        uses: actions/gradle-build-action@v2
+        with:
+          arguments: build
+
+      - name: Git change branch to main
+        run: git switch main
+
+      - name: Git merge 'develop' to 'main'
+        run: git merge develop
