@@ -35,8 +35,8 @@ jobs:
       - name: Build gradle
         run: ./gradlew --warning-mode=all build
 
-      - name: Git change branch to main
-        run: git checkout main
+      - name: Create local branch 'main' and change branch to 'main'
+        run: git checkout -b main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
