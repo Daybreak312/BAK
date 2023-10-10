@@ -1,4 +1,4 @@
-package com.example.bak.domain.user.controller.dto.request
+package com.example.bak.domain.user.presentation.dto.request
 
 data class UserSignRequest(
     val name: String,

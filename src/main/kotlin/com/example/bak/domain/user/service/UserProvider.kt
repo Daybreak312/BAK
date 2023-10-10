@@ -1,7 +1,7 @@
 package com.example.bak.domain.user.service
 
 import com.example.bak.domain.user.entity.User
-import com.example.bak.domain.user.repository.UserRepository
+import com.example.bak.domain.user.persistence.UserRepository
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 

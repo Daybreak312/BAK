@@ -1,4 +1,4 @@
-package com.example.bak.domain.user.controller.dto
+package com.example.bak.domain.user.presentation.dto
 
 data class TokenResponse(
 

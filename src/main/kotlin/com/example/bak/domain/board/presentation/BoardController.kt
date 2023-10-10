@@ -1,9 +1,9 @@
-package com.example.bak.domain.board.controller
+package com.example.bak.domain.board.presentation
 
-import com.example.bak.domain.board.controller.dto.request.BoardCreateRequest
-import com.example.bak.domain.board.controller.dto.request.BoardUpdateRequest
-import com.example.bak.domain.board.controller.dto.response.BoardListResponse
-import com.example.bak.domain.board.controller.dto.response.BoardMaximumResponse
+import com.example.bak.domain.board.presentation.dto.request.BoardCreateRequest
+import com.example.bak.domain.board.presentation.dto.request.BoardUpdateRequest
+import com.example.bak.domain.board.presentation.dto.response.BoardListResponse
+import com.example.bak.domain.board.presentation.dto.response.BoardMaximumResponse
 import com.example.bak.domain.board.service.BoardService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*

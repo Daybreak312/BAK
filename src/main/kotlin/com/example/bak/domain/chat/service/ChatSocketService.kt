@@ -12,7 +12,7 @@ import com.example.bak.domain.chat.service.exception.ChatRoomNoPermissionExcepti
 import com.example.bak.domain.chat.service.exception.ChatRoomNotFoundException
 import com.example.bak.domain.chat.service.exception.ChatRoomNullException
 import com.example.bak.domain.user.entity.User
-import com.example.bak.domain.user.repository.UserRepository
+import com.example.bak.domain.user.persistence.UserRepository
 import com.example.bak.domain.user.service.exception.UserNotFoundException
 import com.example.bak.global.config.socket.ServerEndpointConfigurator
 import com.fasterxml.jackson.databind.ObjectMapper

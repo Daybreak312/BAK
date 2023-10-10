@@ -1,4 +1,4 @@
-package com.example.bak.domain.board.controller.dto.response
+package com.example.bak.domain.board.presentation.dto.response
 
 data class BoardListResponse(
     val boardMinimumList: List<BoardMinimumResponse>

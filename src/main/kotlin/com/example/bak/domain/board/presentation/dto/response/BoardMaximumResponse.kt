@@ -1,4 +1,4 @@
-package com.example.bak.domain.board.controller.dto.response
+package com.example.bak.domain.board.presentation.dto.response
 
 import com.example.bak.domain.board.entity.Board
 import java.time.LocalDateTime

@@ -1,8 +1,8 @@
 package com.example.bak.global.config.security.jwt
 
 import com.example.bak.domain.auth.entity.RefreshToken
-import com.example.bak.domain.auth.repository.RefreshTokenRepository
-import com.example.bak.domain.user.controller.dto.TokenResponse
+import com.example.bak.domain.auth.persistence.RefreshTokenRepository
+import com.example.bak.domain.user.presentation.dto.TokenResponse
 import com.example.bak.global.config.security.jwt.env.JwtProperty
 import com.example.bak.global.exception.ExpiredTokenException
 import com.example.bak.global.exception.InvalidTokenException

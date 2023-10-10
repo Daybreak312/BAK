@@ -1,4 +1,4 @@
-package com.example.bak.domain.board.repository
+package com.example.bak.domain.board.persistence
 
 import com.example.bak.domain.board.entity.Board
 import org.springframework.data.jpa.repository.JpaRepository

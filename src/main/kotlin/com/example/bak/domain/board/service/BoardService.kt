@@ -1,12 +1,12 @@
 package com.example.bak.domain.board.service
 
-import com.example.bak.domain.board.controller.dto.request.BoardCreateRequest
-import com.example.bak.domain.board.controller.dto.request.BoardUpdateRequest
-import com.example.bak.domain.board.controller.dto.response.BoardListResponse
-import com.example.bak.domain.board.controller.dto.response.BoardMaximumResponse
-import com.example.bak.domain.board.controller.dto.response.BoardMinimumResponse
+import com.example.bak.domain.board.presentation.dto.request.BoardCreateRequest
+import com.example.bak.domain.board.presentation.dto.request.BoardUpdateRequest
+import com.example.bak.domain.board.presentation.dto.response.BoardListResponse
+import com.example.bak.domain.board.presentation.dto.response.BoardMaximumResponse
+import com.example.bak.domain.board.presentation.dto.response.BoardMinimumResponse
 import com.example.bak.domain.board.entity.Board
-import com.example.bak.domain.board.repository.BoardRepository
+import com.example.bak.domain.board.persistence.BoardRepository
 import com.example.bak.domain.board.service.exception.BoardNoPermissionException
 import com.example.bak.domain.board.service.exception.BoardNotFoundException
 import com.example.bak.domain.user.service.UserProvider

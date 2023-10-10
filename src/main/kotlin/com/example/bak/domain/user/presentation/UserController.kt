@@ -1,9 +1,9 @@
-package com.example.bak.domain.user.controller
+package com.example.bak.domain.user.presentation
 
-import com.example.bak.domain.user.controller.dto.TokenResponse
-import com.example.bak.domain.user.controller.dto.request.ReissueRequest
-import com.example.bak.domain.user.controller.dto.request.UserLoginRequest
-import com.example.bak.domain.user.controller.dto.request.UserSignRequest
+import com.example.bak.domain.user.presentation.dto.TokenResponse
+import com.example.bak.domain.user.presentation.dto.request.ReissueRequest
+import com.example.bak.domain.user.presentation.dto.request.UserLoginRequest
+import com.example.bak.domain.user.presentation.dto.request.UserSignRequest
 import com.example.bak.domain.user.service.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
