@@ -32,9 +32,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build gradle
-        uses: actions/gradle-build-action@v2
-        with:
-          arguments: build
+        run: ./gradlew build
 
       - name: Git change branch to main
         run: git switch main
