@@ -29,8 +29,11 @@ jobs:
           distribution: 'oracle'
           cache: 'gradle'
 
+      - name: gradlew
+        run: chmod +x gradlew
+
       - name: Build gradle
-        run: ./gradlew build
+        run: ./gradlew build --warning-mode all
 
       - name: Git change branch to main
         run: git switch main
