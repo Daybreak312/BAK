@@ -25,7 +25,7 @@ class JwtTokenProvider(
     fun createToken(accountId: String): TokenResponse {
 
         val accessToken = generateAccessToken(accountId)
-        val refreshToken = generateRefreshToken(accountId)
+        val refreshToken = generateRefreshToken()
 
         refreshTokenRepository.deleteById(accountId)
         refreshTokenRepository.save(RefreshToken(accountId, refreshToken))
