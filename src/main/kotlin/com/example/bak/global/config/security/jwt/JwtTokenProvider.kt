@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 
-// JWT 토큰 제공자, RTR 방식을 사용
 @Component
 class JwtTokenProvider(
     private val jwtProperty: JwtProperty,
