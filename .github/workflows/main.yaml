@@ -36,7 +36,7 @@ jobs:
         run: ./gradlew --warning-mode=all build
 
       - name: Git change branch to main
-        run: git switch main
+        run: git checkout main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
