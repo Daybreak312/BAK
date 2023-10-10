@@ -1,0 +1,36 @@
+name: main
+
+on:
+  push:
+    branches: 'main'
+
+jobs:
+  job_main_build:
+    name: main build
+    runs-on: ubuntu-latest
+    env:
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_URL: ${{ secrets.DB_URL }}
+      JWT_HEADER: ${{ secrets.JWT_HEADER }}
+      JWT_PREFIX: ${{ secrets.JWT_PREFIX }}
+      JWT_ACCESS_TOKEN_EXP: ${{ secrets.JWT_ACCESS_TOKEN_EXP }}
+      JWT_REFRESH_TOKEN_EXP: ${{ secrets.JWT_REFRESH_TOKEN_EXP }}
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+
+    steps:
+
+      - name: checkout
+      - uses: actions/checkout@v3
+
+      - name: jdk setting
+      - uses: actions/setup-java@v3
+        with:
+          java-versions: '17'
+          distribution: 'temurin'
+
+      - name: gradlew
+        run: chmod +x gradlew
+
+      - name: Build gradle
+        run: ./gradlew build
