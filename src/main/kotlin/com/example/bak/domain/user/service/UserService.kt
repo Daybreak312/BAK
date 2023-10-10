@@ -41,7 +41,7 @@ class UserService(
                     name = name,
                     accountId = accountId,
                     password = passwordEncoder.encode(password),
-                    role = Role.USER
+                    role = Role.USE
                 )
             )
         }
