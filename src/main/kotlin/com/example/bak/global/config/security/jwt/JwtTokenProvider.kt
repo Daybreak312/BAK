@@ -49,7 +49,7 @@ class JwtTokenProvider(
             .compact()
     }
 
-    private fun generateRefreshToken(accountId: String): String {
+    private fun generateRefreshToken(): String {
         return Jwts.builder()
             .signWith(SignatureAlgorithm.HS256, jwtProperty.secretKey)
             .setIssuedAt(Date())
