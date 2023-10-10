@@ -33,7 +33,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build gradle
-        run: ./gradlew build --warning-mode all
+        run: ./gradlew build --warning-mode=all
 
       - name: Git change branch to main
         run: git switch main
