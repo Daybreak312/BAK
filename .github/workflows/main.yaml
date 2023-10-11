@@ -59,7 +59,7 @@ jobs:
           NAME: ${{ secrets.NAME }}
 
       - name: Git merge 'develop' to 'main'
-        run: git merge -ff origin develop
+        run: git merge origin develop
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
