@@ -40,22 +40,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-      - name: Log step - Git Branches
-        run: git branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-
       - name: Git change branch to 'main'
         run: git checkout main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Git merge 'develop' to 'main'
-        run: git merge develop
+        run: git merge --allow-unrelated-histories develop
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Git push 'main' branch
-        run: git push origin master
+        run: git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
