@@ -44,7 +44,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Git change branch to 'main'
-        run: git checkout origin main
+        run: git checkout main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
@@ -59,7 +59,7 @@ jobs:
           NAME: ${{ secrets.NAME }}
 
       - name: Git merge 'develop' to 'main'
-        run: git merge --allow-unrelated-histories origin develop
+        run: git merge -ff origin develop
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
