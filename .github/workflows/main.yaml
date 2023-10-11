@@ -50,7 +50,7 @@ jobs:
         run: git pull origin develop
 
       - name: Git change branch to 'main'
-        run: git checkout main=
+        run: git checkout main
 
       - name: Git pull in 'main' branch
         run: git pull origin main
