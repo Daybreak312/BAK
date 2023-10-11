@@ -39,6 +39,7 @@ jobs:
   merge:
     name: Merge branch 'develop' to 'main'
     runs-on: ubuntu-latest
+    needs: build
     if: ${{ success() }}
 
     steps:
