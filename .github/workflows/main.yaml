@@ -69,7 +69,7 @@ jobs:
         run: git merge --ff --allow-unrelated-histories develop
 
       - name: Log - cat main.yaml
-        run: cat main.yaml
+        run: cat .github/workflows/main.yaml
         if: always()
 
       - name: Git push 'main' branch
