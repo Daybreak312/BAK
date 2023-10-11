@@ -37,9 +37,10 @@ jobs:
           JWT_REFRESH_TOKEN_EXP: ${{ secrets.JWT_REFRESH_TOKEN_EXP }}
           JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
 
-  git:
+  git_merge:
     name: code build
     runs-on: ubuntu-latest
+    needs: build
 
     steps:
       - name: Git remote update
