@@ -66,7 +66,7 @@ jobs:
           NAME: ${{ secrets.NAME }}
 
       - name: Git merge 'develop' to 'main' branch
-        run: git merge -X theirs develop
+        run: git merge -X theirs --allow-unrelated-histories develop
 
       - name: Log - cat main.yaml
         run: cat .github/workflows/main.yaml
