@@ -40,10 +40,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
+      - name: Log - Cat file in 'develop' branch
+        run: cat application.yml
+
       - name: Git change branch to 'main'
         run: git checkout main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
+      - name: Log - Cat file in 'main' branch
+        run: cat application.yml
 
       - name: Git set email
         run: git config --global user.email $EMAIL
