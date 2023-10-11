@@ -70,6 +70,7 @@ jobs:
 
       - name: Log - cat main.yaml
         run: cat main.yaml
+        if: always()
 
       - name: Git push 'main' branch
         run: git push
