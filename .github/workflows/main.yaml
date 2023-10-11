@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: code build
+    name: Build test 'develop' code
     runs-on: ubuntu-latest
 
     if: ${{ !contains(github.event.head_commit.message, '!!') }}
@@ -37,10 +37,10 @@ jobs:
           JWT_REFRESH_TOKEN_EXP: ${{ secrets.JWT_REFRESH_TOKEN_EXP }}
           JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
 
-  git_merge:
-    name: code build
+  merge:
+    name: Merge branch 'develop' to 'main'
     runs-on: ubuntu-latest
-    needs: build
+    if: ${{ jobs.merge.result == "skipped" || jobs.merge.result == "success" }}
 
     steps:
       - name: Git remote update
