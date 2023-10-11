@@ -60,7 +60,7 @@ jobs:
           NAME: ${{ secrets.NAME }}
 
       - name: Git merge 'develop' to 'main'
-        run: git merge --allow-unrelated-histories develop
+        run: git merge --allow-unrelated-histories origin develop
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
