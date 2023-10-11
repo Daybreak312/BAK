@@ -62,8 +62,3 @@ jobs:
         run: git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
-
-      - name: Git push 'main' branch
-        run: git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
