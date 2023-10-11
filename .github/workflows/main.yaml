@@ -43,6 +43,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
+      - name: Git change branch to 'main'
+        run: git checkout main
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
+      - name: Git pull in 'main' branch
+        run: git pull origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
+      - name: Git change branch to 'develop'
+        run: git checkout develop
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
       - name: Git set email
         run: git config --global user.email $EMAIL
         env:
