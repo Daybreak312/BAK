@@ -82,7 +82,7 @@ class ChatSocketService(
             chatRoomJoinerRepository.findAllByChatRoom(chatRoom) // join용 entity 리스트
                 .map { joiner -> clients.first { it.userPrincipal.name == joiner.user.accountId } }
                 .filter { it.userPrincipal.name != sender.accountId }
-        // joiner 리스트로부터 추출한 user의 accountId와 일치하는 session들을 리스트로 추출
+        // joiner 리스트로부터 추출한 user의 accountId와 일치하는 session들을 리스트로 추출d
 
         logger.info("${chatRoom.name} - id \"${chatRoom.id}\" : will receive.")
 
