@@ -40,9 +40,12 @@ jobs:
     name: Merge branch 'develop' to 'main'
     runs-on: ubuntu-latest
     needs: build
-    if: ${{ success() }}
+    if: ${{ needs.build.result == 'success' || needs.build.result == 'skipped' }}
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Git remote update
         run: git remote update
         env:
