@@ -39,8 +39,9 @@ jobs:
 
   merge:
     name: Merge branch 'develop' to 'main'
-    runs-on: ubuntu-latest
-    if: jobs.merge.result == 'skipped' || jobs.merge.result == 'success'
+    runs-on: ubuntu-latest'
+    needs: build
+    if: needs.build.result == 'success' || needs.build.result == 'skipped'
 
     steps:
       - name: Git remote update
