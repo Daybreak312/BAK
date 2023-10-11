@@ -44,7 +44,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Git change branch to 'main'
-        run: git checkout main
+        run: git checkout origin main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
@@ -69,11 +69,6 @@ jobs:
           NAME: ${{ secrets.NAME }}
 
       - name: Git push 'develop' branch's contents to 'main' branch
-        run: git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-
-      - name: Git push 'main' branch
         run: git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
