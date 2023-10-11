@@ -8,14 +8,15 @@ jobs:
   build:
     name: Build test 'develop' code
     runs-on: ubuntu-latest
-    if: ${{ !contains(github.event.head_commit.message, '!!') }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        if: ${{ !contains(github.event.head_commit.message, '!!') }}
 
       - name: JDK Set up to 17
         uses: actions/setup-java@v3
+        if: ${{ !contains(github.event.head_commit.message, '!!') }}
         with:
           java-version: '17'
           distribution: 'oracle'
@@ -23,9 +24,11 @@ jobs:
 
       - name: Gradlew
         run: chmod +x gradlew
+        if: ${{ !contains(github.event.head_commit.message, '!!') }}
 
       - name: Build gradle
         run: ./gradlew --warning-mode=all build
+        if: ${{ !contains(github.event.head_commit.message, '!!') }}
         env:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
@@ -35,16 +38,6 @@ jobs:
           JWT_ACCESS_TOKEN_EXP: ${{ secrets.JWT_ACCESS_TOKEN_EXP }}
           JWT_REFRESH_TOKEN_EXP: ${{ secrets.JWT_REFRESH_TOKEN_EXP }}
           JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-
-  merge:
-    name: Merge branch 'develop' to 'main'
-    runs-on: ubuntu-latest
-    needs: build
-    if: ${{ needs.build.result == 'success' || needs.build.result == 'skipped' }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
 
       - name: Git remote update
         run: git remote update
