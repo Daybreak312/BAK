@@ -43,17 +43,17 @@ jobs:
       - name: Git remote update
         run: git remote update
 
-      - name: Git change branch to 'develop'
-        run: git checkout develop
-
-      - name: Git pull in 'develop' branch
-        run: git pull origin develop
-
       - name: Git change branch to 'main'
         run: git checkout main
 
       - name: Git pull in 'main' branch
         run: git pull origin main
+
+      - name: Git change branch to 'develop'
+        run: git checkout develop
+
+      - name: Git pull in 'develop' branch
+        run: git pull origin develop
 
       - name: Git set email
         run: git config --global user.email $EMAIL
@@ -66,4 +66,4 @@ jobs:
           NAME: ${{ secrets.NAME }}
 
       - name: Git merge 'develop' to 'main' branch
-        run: git merge develop
+        run: git merge main
