@@ -8,6 +8,8 @@ jobs:
   build:
     name: CI
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
     steps:
       - name: Checkout
@@ -40,28 +42,18 @@ jobs:
 
       - name: Git remote update
         run: git remote update
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-
-      - name: Git change branch to 'main'
-        run: git checkout main
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-
-      - name: Git pull in 'main' branch
-        run: git pull origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Git change branch to 'develop'
         run: git checkout develop
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Git pull in 'develop' branch
         run: git pull origin develop
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
+      - name: Git change branch to 'main'
+        run: git checkout main=
+
+      - name: Git pull in 'main' branch
+        run: git pull origin main
 
       - name: Git set email
         run: git config --global user.email $EMAIL
@@ -73,7 +65,5 @@ jobs:
         env:
           NAME: ${{ secrets.NAME }}
 
-      - name: Git push 'develop' branch's contents to 'main' branch
-        run: git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      - name: Git merge 'develop' to 'main' branch
+        run: git merge develop
