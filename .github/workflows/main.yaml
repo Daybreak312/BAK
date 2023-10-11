@@ -44,7 +44,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Git change branch to 'main'
-        run: git checkout -b origin/main
+        run: git checkout -b main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
