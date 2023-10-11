@@ -40,7 +40,7 @@ jobs:
   merge:
     name: Merge branch 'develop' to 'main'
     runs-on: ubuntu-latest
-    if: job.merge.result == "skipped" || job.merge.result == "success"
+    if: github.jobs.merge.result == "skipped" || github.jobs.merge.result == "success"
 
     steps:
       - name: Git remote update
