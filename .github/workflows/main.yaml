@@ -8,7 +8,6 @@ jobs:
   build:
     name: Build test 'develop' code
     runs-on: ubuntu-latest
-
     if: ${{ !contains(github.event.head_commit.message, '!!') }}
 
     steps:
