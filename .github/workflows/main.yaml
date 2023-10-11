@@ -2,21 +2,14 @@ name: BAK Github Action
 
 on:
   push:
-    branches: 'develop'
+    branch: 'develop'
 
 jobs:
-  code_build_and_merge:
+  build:
     name: code build
     runs-on: ubuntu-latest
-    env:
-      DB_USERNAME: ${{ secrets.DB_USERNAME }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      DB_URL: ${{ secrets.DB_URL }}
-      JWT_HEADER: ${{ secrets.JWT_HEADER }}
-      JWT_PREFIX: ${{ secrets.JWT_PREFIX }}
-      JWT_ACCESS_TOKEN_EXP: ${{ secrets.JWT_ACCESS_TOKEN_EXP }}
-      JWT_REFRESH_TOKEN_EXP: ${{ secrets.JWT_REFRESH_TOKEN_EXP }}
-      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+
+    if: ${{ !contains(github.event.head_commit.message, '!!') }}
 
     steps:
       - name: Checkout
@@ -34,22 +27,30 @@ jobs:
 
       - name: Build gradle
         run: ./gradlew --warning-mode=all build
+        env:
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_URL: ${{ secrets.DB_URL }}
+          JWT_HEADER: ${{ secrets.JWT_HEADER }}
+          JWT_PREFIX: ${{ secrets.JWT_PREFIX }}
+          JWT_ACCESS_TOKEN_EXP: ${{ secrets.JWT_ACCESS_TOKEN_EXP }}
+          JWT_REFRESH_TOKEN_EXP: ${{ secrets.JWT_REFRESH_TOKEN_EXP }}
+          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
 
+  git:
+    name: code build
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Git remote update
         run: git remote update
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-      - name: Log - Cat file in 'develop' branch
-        run: cat src/main/resources/application.yml
-
       - name: Git change branch to 'main'
         run: git checkout main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
-
-      - name: Log - Cat file in 'main' branch
-        run: cat src/main/resources/application.yml
 
       - name: Git set email
         run: git config --global user.email $EMAIL
