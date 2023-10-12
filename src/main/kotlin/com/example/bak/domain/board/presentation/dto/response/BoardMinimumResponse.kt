@@ -1,6 +1,7 @@
 package com.example.bak.domain.board.presentation.dto.response
 
 import com.example.bak.domain.board.entity.Board
+import com.example.bak.domain.board.service.exception.fatal.BoardIdNullException
 import java.time.LocalDateTime
 
 data class BoardMinimumResponse(
@@ -14,7 +15,7 @@ data class BoardMinimumResponse(
         fun of(board: Board): BoardMinimumResponse =
             board.run {
                 BoardMinimumResponse(
-                    boardId = id!!,
+                    boardId = id ?: throw BoardIdNullException,
                     title = title,
                     createdAt = createdAt,
                     userName = user.name
