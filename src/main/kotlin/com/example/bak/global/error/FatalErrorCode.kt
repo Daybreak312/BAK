@@ -7,5 +7,5 @@ enum class FatalErrorCode(
     val message: String
 ) {
 
-    BOARD_ID_NOT_FOUND(HttpStatus.NOT_FOUND, "게시글의 id가 비어있습니다.")
+    BOARD_ID_NULL(HttpStatus.NOT_FOUND, "게시글의 id가 비어있습니다.")
 }
