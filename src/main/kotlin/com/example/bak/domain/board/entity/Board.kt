@@ -28,9 +28,4 @@ data class Board(
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
-) : BaseTimeEntity() {
-
-    fun updateTitle(title: String) { this.title = title }
-
-    fun updateContent(content: String) { this.content = content }
-}
+) : BaseTimeEntity()
