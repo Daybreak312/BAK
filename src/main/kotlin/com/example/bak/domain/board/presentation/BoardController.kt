@@ -30,13 +30,11 @@ class BoardController(
         boardService.updateBoard(boardId, request)
     }
 
-    @GetMapping
-    fun findBoardList(): BoardListResponse {
-        return boardService.findBoardList()
-    }
-
     @GetMapping("/{boardId}")
-    fun findBoard(@PathVariable boardId: Long): BoardMaximumResponse {
-        return boardService.findBoard(boardId)
-    }
+    fun findBoard(@PathVariable boardId: Long): BoardMaximumResponse =
+        boardService.findBoard(boardId)
+
+    @GetMapping
+    fun findBoardList(): BoardListResponse =
+        boardService.findBoardList()
 }

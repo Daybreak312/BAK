@@ -1,12 +1,12 @@
 package com.example.bak.domain.board.service
 
+import com.example.bak.domain.board.entity.Board
+import com.example.bak.domain.board.persistence.BoardRepository
 import com.example.bak.domain.board.presentation.dto.request.BoardCreateRequest
 import com.example.bak.domain.board.presentation.dto.request.BoardUpdateRequest
 import com.example.bak.domain.board.presentation.dto.response.BoardListResponse
 import com.example.bak.domain.board.presentation.dto.response.BoardMaximumResponse
 import com.example.bak.domain.board.presentation.dto.response.BoardMinimumResponse
-import com.example.bak.domain.board.entity.Board
-import com.example.bak.domain.board.persistence.BoardRepository
 import com.example.bak.domain.board.service.exception.BoardNoPermissionException
 import com.example.bak.domain.board.service.exception.BoardNotFoundException
 import com.example.bak.domain.user.service.UserProvider
@@ -14,6 +14,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 @Service
 class BoardService(
 
@@ -22,7 +23,6 @@ class BoardService(
     private val userProvider: UserProvider
 ) {
 
-    @Transactional
     fun createBoard(request: BoardCreateRequest) {
         boardRepository.save(
             request.run {
@@ -30,7 +30,6 @@ class BoardService(
             })
     }
 
-    @Transactional
     fun deleteBoard(boardId: Long) {
 
         val board: Board = boardRepository.findByIdOrNull(boardId) ?: throw BoardNotFoundException
@@ -41,7 +40,6 @@ class BoardService(
         boardRepository.deleteById(boardId)
     }
 
-    @Transactional
     fun updateBoard(boardId: Long, request: BoardUpdateRequest) {
 
         val board = boardRepository.findByIdOrNull(boardId) ?: throw BoardNotFoundException
@@ -49,8 +47,8 @@ class BoardService(
         if (board.user != userProvider.currentUser())
             throw BoardNoPermissionException
 
-        request.title?.let { board.updateTitle(it) }
-        request.content?.let { board.updateContent(it) }
+        request.title?.let { board.title = it }
+        request.content?.let { board.content = it }
     }
 
     @Transactional(readOnly = true)
@@ -62,6 +60,6 @@ class BoardService(
     @Transactional(readOnly = true)
     fun findBoardList(): BoardListResponse =
         BoardListResponse(
-            boardRepository.findAll().map(BoardMinimumResponse.Companion::of).toList()
+            boardRepository.findAll().map(BoardMinimumResponse::of).toList()
         )
 }
