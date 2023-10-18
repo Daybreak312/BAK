@@ -1,8 +1,8 @@
 package com.example.bak.global.error.handler
 
+import com.example.bak.global.error.CustomException
 import com.example.bak.global.error.ErrorCode
 import com.example.bak.global.error.FatalException
-import com.example.bak.global.error.GlobalException
 import com.example.bak.global.error.dto.ErrorResponse
 import org.apache.commons.logging.LogFactory
 import org.springframework.http.HttpStatus
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @RestControllerAdvice
 class ExceptionHandler {
 
-    @ExceptionHandler(GlobalException::class)
-    fun globalExceptionHandler(e: GlobalException) =
+    @ExceptionHandler(CustomException::class)
+    fun globalExceptionHandler(e: CustomException) =
         ResponseEntity
             .status(e.errorCode.status)
             .body(ErrorResponse(e.errorCode.status.value(), e.errorCode.message))

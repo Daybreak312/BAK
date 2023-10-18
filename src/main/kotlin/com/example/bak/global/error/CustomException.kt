@@ -1,5 +1,5 @@
 package com.example.bak.global.error
 
-open class GlobalException(
+open class CustomException(
     val errorCode: ErrorCode
 ) : RuntimeException(errorCode.message)
