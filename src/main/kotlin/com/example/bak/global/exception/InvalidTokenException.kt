@@ -1,6 +1,6 @@
 package com.example.bak.global.exception
 
-import com.example.bak.global.error.GlobalException
+import com.example.bak.global.error.CustomException
 import com.example.bak.global.error.ErrorCode
 
-object InvalidTokenException : GlobalException(ErrorCode.INVALID_TOKEN)
+object InvalidTokenException : CustomException(ErrorCode.INVALID_TOKEN)

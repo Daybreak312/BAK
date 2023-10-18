@@ -1,6 +1,6 @@
 package com.example.bak.domain.user.service.exception
 
 import com.example.bak.global.error.ErrorCode
-import com.example.bak.global.error.GlobalException
+import com.example.bak.global.error.CustomException
 
-object NoPermissionException : GlobalException(ErrorCode.NEED_ROLE)
+object NoPermissionException : CustomException(ErrorCode.NEED_ROLE)

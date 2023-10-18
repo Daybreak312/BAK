@@ -1,6 +1,6 @@
 package com.example.bak.domain.board.service.exception
 
 import com.example.bak.global.error.ErrorCode
-import com.example.bak.global.error.GlobalException
+import com.example.bak.global.error.CustomException
 
-object BoardNotFoundException : GlobalException(ErrorCode.BOARD_NOT_FOUND)
+object BoardNotFoundException : CustomException(ErrorCode.BOARD_NOT_FOUND)
