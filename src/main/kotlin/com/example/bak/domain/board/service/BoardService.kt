@@ -26,7 +26,11 @@ class BoardService(
     fun createBoard(request: BoardCreateRequest) {
         boardRepository.save(
             request.run {
-                Board(title, content, userProvider.currentUser())
+                Board(
+                    title = title,
+                    content = content,
+                    user = userProvider.currentUser()
+                )
             })
     }
 
@@ -44,8 +48,7 @@ class BoardService(
 
         val board = boardRepository.findByIdOrNull(boardId) ?: throw BoardNotFoundException
 
-        if (board.user != userProvider.currentUser())
-            throw BoardNoPermissionException
+        if (board.user != userProvider.currentUser()) throw BoardNoPermissionException
 
         request.title?.let { board.title = it }
         request.content?.let { board.content = it }

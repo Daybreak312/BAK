@@ -3,7 +3,7 @@ package com.example.bak.domain.chat.presentation.dto.response
 import com.example.bak.domain.chat.entity.Chat
 import java.time.LocalDateTime
 
-data class ReceiveMessageDto(
+data class ReceiveChatDto(
 
     val message: String,
 
@@ -16,10 +16,10 @@ data class ReceiveMessageDto(
     val sendTime: LocalDateTime
 ) {
     companion object {
-        fun of(chat: Chat): ReceiveMessageDto =
-            ReceiveMessageDto(
+        fun of(chat: Chat): ReceiveChatDto =
+            ReceiveChatDto(
                 message = chat.message,
-                sendBy = chat.user.name,
+                sendBy = chat.sender.name,
                 chatRoomName = chat.chatRoom.name,
                 chatRoomId = chat.chatRoom.id!!,
                 sendTime = chat.createdAt
