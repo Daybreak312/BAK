@@ -7,10 +7,8 @@ import com.example.bak.domain.chat.persistence.ChatRoomJoinerRepository
 import com.example.bak.domain.chat.persistence.ChatRoomRepository
 import com.example.bak.domain.chat.presentation.dto.request.SendChatDto
 import com.example.bak.domain.chat.presentation.dto.response.ReceiveChatDto
-import com.example.bak.domain.chat.service.exception.ChatMessageNullException
 import com.example.bak.domain.chat.service.exception.ChatRoomNoPermissionException
 import com.example.bak.domain.chat.service.exception.ChatRoomNotFoundException
-import com.example.bak.domain.chat.service.exception.ChatRoomNullException
 import com.example.bak.domain.user.entity.User
 import com.example.bak.domain.user.persistence.UserRepository
 import com.example.bak.domain.user.service.exception.UserNotFoundException
@@ -18,7 +16,6 @@ import com.example.bak.global.config.socket.ServerEndpointConfigurator
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import org.apache.commons.logging.LogFactory
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import javax.websocket.OnClose
@@ -68,7 +65,7 @@ class ChatSocketService(
             throw ChatRoomNoPermissionException
 
         val chatRoomParticipants = orderChatRoomParticipants(sendTargetChatRoom, sender)
-        val chat = chatRepository.save(Chat(sender = sender, chatRoom = sendTargetChatRoom, message = dto.message))
+        val chat = chatRepository.save(Chat(user = sender, chatRoom = sendTargetChatRoom, message = dto.message))
 
         sendChat(chat, chatRoomParticipants)
     }

@@ -12,7 +12,7 @@ class Chat(
     @Id
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    val sender: User,
+    val user: User,
 
     @Id
     @ManyToOne
@@ -30,6 +30,6 @@ class Chat(
 
     private fun id() = IdClass(
         this.chatRoom.id,
-        this.sender.id
+        this.user.id
     )
 }

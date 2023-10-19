@@ -7,7 +7,7 @@ data class ReceiveChatDto(
 
     val message: String,
 
-    val sendBy: String,
+    val sender: String,
 
     val chatRoomName: String,
 
@@ -19,7 +19,7 @@ data class ReceiveChatDto(
         fun of(chat: Chat): ReceiveChatDto =
             ReceiveChatDto(
                 message = chat.message,
-                sendBy = chat.sender.name,
+                sender = chat.user.name,
                 chatRoomName = chat.chatRoom.name,
                 chatRoomId = chat.chatRoom.id!!,
                 sendTime = chat.createdAt
