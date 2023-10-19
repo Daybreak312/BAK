@@ -68,7 +68,7 @@ class ChatSocketService(
             throw ChatRoomNoPermissionException
 
         val chatRoomParticipants = orderChatRoomParticipants(sendTargetChatRoom, sender)
-        val chat = chatRepository.save(Chat(sender = sender, chatRoom = sendTargetChatRoom, message = dto.message))
+        val chat = chatRepository.save(Chat(user = sender, chatRoom = sendTargetChatRoom, message = dto.message))
 
         sendChat(chat, chatRoomParticipants)
     }

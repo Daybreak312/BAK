@@ -27,7 +27,7 @@ class ChatService(
 
         val chatRoom = chatRoomRepository.save(ChatRoom(request.chatRoomName))
 
-        request.accountIdList.map {
+        request.accountIds.map {
             chatRoomJoinerRepository.save(
                 ChatRoomJoiner(chatRoom, userRepository.findByAccountId(it) ?: throw UserNotFoundException)
             )
