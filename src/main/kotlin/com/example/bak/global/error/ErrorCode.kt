@@ -27,6 +27,7 @@ enum class ErrorCode(
     CHAT_ROOM_NULL(HttpStatus.BAD_REQUEST, "채팅을 전달할 대상이 필요합니다."),
     CHAT_ROOM_NOT_FOUND(HttpStatus.NOT_FOUND, "채팅방을 찾을 수 없습니다."),
     CHAT_ROOM_NO_PERMISSION(HttpStatus.FORBIDDEN, "이 채팅방에 메세지를 보낼 권한이 없습니다."),
+    PARTICIPANTS_NOT_CONTAIN_GENERATOR(HttpStatus.BAD_REQUEST, "채팅방 참여자에는 본인이 포함되어야 합니다."),
 
     // SERVER
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에서 처리되지 않은 오류입니다.")
