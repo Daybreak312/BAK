@@ -1,15 +1,17 @@
 package com.example.bak.domain.chat.service
 
 import com.example.bak.domain.chat.entity.Chat
+import com.example.bak.domain.chat.entity.ChatRoom
 import com.example.bak.domain.chat.persistence.ChatRepository
 import com.example.bak.domain.chat.persistence.ChatRoomJoinerRepository
 import com.example.bak.domain.chat.persistence.ChatRoomRepository
-import com.example.bak.domain.chat.presentation.dto.request.SendMessageDto
-import com.example.bak.domain.chat.presentation.dto.response.ReceiveMessageDto
+import com.example.bak.domain.chat.presentation.dto.request.SendChatDto
+import com.example.bak.domain.chat.presentation.dto.response.ReceiveChatDto
 import com.example.bak.domain.chat.service.exception.ChatMessageNullException
 import com.example.bak.domain.chat.service.exception.ChatRoomNoPermissionException
 import com.example.bak.domain.chat.service.exception.ChatRoomNotFoundException
 import com.example.bak.domain.chat.service.exception.ChatRoomNullException
+import com.example.bak.domain.user.entity.User
 import com.example.bak.domain.user.persistence.UserRepository
 import com.example.bak.domain.user.service.exception.UserNotFoundException
 import com.example.bak.global.config.socket.ServerEndpointConfigurator
@@ -44,8 +46,6 @@ class ChatSocketService(
         private val clients: ArrayList<Session> = ArrayList()
     }
 
-    private val logger = LogFactory.getLog(javaClass)
-
     @OnOpen
     fun socketOpen(session: Session) {
         objectMapper.registerModule(JavaTimeModule()).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
@@ -60,34 +60,26 @@ class ChatSocketService(
     @OnMessage
     fun socketSend(session: Session, message: String) {
 
-        val dto = objectMapper.readValue(message, SendMessageDto::class.java)
-
-        dto.chatRoom ?: throw ChatRoomNullException
-        dto.message ?: throw ChatMessageNullException
+        val dto = objectMapper.readValue(message, SendChatDto::class.java)
 
         val sender = userRepository.findByAccountId(session.userPrincipal.name) ?: throw UserNotFoundException
+        val sendTargetChatRoom = chatRoomRepository.findByIdOrNull(dto.chatRoomId) ?: throw ChatRoomNotFoundException
+        if (!chatRoomJoinerRepository.existsByChatRoomAndUser(sendTargetChatRoom, sender))
+            throw ChatRoomNoPermissionException
 
-        val sendTargetChatRoom = chatRoomRepository.findByIdOrNull(dto.chatRoom) ?: throw ChatRoomNotFoundException
+        val chatRoomParticipants = orderChatRoomParticipants(sendTargetChatRoom, sender)
+        val chat = chatRepository.save(Chat(sender = sender, chatRoom = sendTargetChatRoom, message = dto.message))
 
-        if (!chatRoomJoinerRepository.existsByChatRoomAndUser(sendTargetChatRoom, sender)) throw ChatRoomNoPermissionException
+        sendChat(chat, chatRoomParticipants)
+    }
 
-        val receiveClients: List<Session> =
-            chatRoomJoinerRepository.findAllByChatRoom(sendTargetChatRoom)
-                .map { joiner -> clients.first { it.userPrincipal.name == joiner.user.accountId } }
-                .filter { it.userPrincipal.name != sender.accountId }
+    private fun orderChatRoomParticipants(sendTargetChatRoom: ChatRoom, sender: User) =
+        chatRoomJoinerRepository.findAllByChatRoom(sendTargetChatRoom)
+            .map { joiner -> clients.first { it.userPrincipal.name == joiner.user.accountId } }
+            .filter { it.userPrincipal.name != sender.accountId }
 
-        logger.info("${sendTargetChatRoom.name} - id \"${sendTargetChatRoom.id}\" : will receive.")
-
-        val chat = chatRepository.save(
-            Chat(
-                user = sender,
-                chatRoom = sendTargetChatRoom,
-                message = dto.message
-            )
-        )
-
-        val writtenChat = objectMapper.writeValueAsString(ReceiveMessageDto.of(chat))
-
-        receiveClients.map { it.basicRemote.sendText(writtenChat) }
+    private fun sendChat(chat: Chat, chatRoomParticipants: List<Session>) {
+        val chatDto = objectMapper.writeValueAsString(ReceiveChatDto.of(chat))
+        chatRoomParticipants.map { it.basicRemote.sendText(chatDto) }
     }
 }

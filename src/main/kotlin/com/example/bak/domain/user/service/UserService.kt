@@ -1,12 +1,12 @@
 package com.example.bak.domain.user.service
 
+import com.example.bak.domain.user.entity.User
+import com.example.bak.domain.user.entity.role.Role
+import com.example.bak.domain.user.persistence.UserRepository
 import com.example.bak.domain.user.presentation.dto.TokenResponse
 import com.example.bak.domain.user.presentation.dto.request.ReissueRequest
 import com.example.bak.domain.user.presentation.dto.request.UserLoginRequest
 import com.example.bak.domain.user.presentation.dto.request.UserSignRequest
-import com.example.bak.domain.user.entity.User
-import com.example.bak.domain.user.entity.role.Role
-import com.example.bak.domain.user.persistence.UserRepository
 import com.example.bak.domain.user.service.exception.UserAccountIdAlreadyExistsException
 import com.example.bak.domain.user.service.exception.UserNotFoundException
 import com.example.bak.domain.user.service.exception.UserPasswordCheckFailException
@@ -27,18 +27,16 @@ class UserService(
 
     fun sign(request: UserSignRequest) {
 
-        with(request) {
+        request.run {
 
-            if (userRepository.existsByAccountId(accountId))
-                throw UserAccountIdAlreadyExistsException
+            if (userRepository.existsByAccountId(accountId)) throw UserAccountIdAlreadyExistsException
 
-            if (password != passwordCheck)
-                throw UserPasswordCheckFailException
+            if (password != passwordCheck) throw UserPasswordCheckFailException
 
             userRepository.save(
                 User(
-                    name = name,
                     accountId = accountId,
+                    name = name,
                     password = passwordEncoder.encode(password),
                     role = Role.USER
                 )
@@ -48,18 +46,16 @@ class UserService(
 
     fun login(request: UserLoginRequest): TokenResponse {
 
-        return with(request) {
+        return request.run {
 
-            val user: User = userRepository.findByAccountId(accountId) ?: throw UserNotFoundException
+            val user = userRepository.findByAccountId(accountId) ?: throw UserNotFoundException
 
-            if (!passwordEncoder.matches(password, user.password))
-                throw UserPasswordMismatchException
+            if (!passwordEncoder.matches(password, user.password)) throw UserPasswordMismatchException
 
             jwtTokenProvider.createToken(accountId)
         }
     }
 
-    fun reissue(request: ReissueRequest): TokenResponse {
-        return jwtTokenProvider.reissue(request.token)
-    }
+    fun reissue(request: ReissueRequest): TokenResponse =
+        jwtTokenProvider.reissue(request.token)
 }

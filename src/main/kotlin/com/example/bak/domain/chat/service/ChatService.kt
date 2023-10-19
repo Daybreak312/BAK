@@ -25,7 +25,7 @@ class ChatService(
     @Transactional
     fun createChatRoom(request: CreateChatRoomRequest) {
 
-        val chatRoom = chatRoomRepository.save(ChatRoom(name = request.chatRoomName))
+        val chatRoom = chatRoomRepository.save(ChatRoom(request.chatRoomName))
 
         request.accountIdList.map {
             chatRoomJoinerRepository.save(

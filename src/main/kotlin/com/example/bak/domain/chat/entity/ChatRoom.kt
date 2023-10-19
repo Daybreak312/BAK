@@ -5,11 +5,11 @@ import javax.persistence.*
 @Entity(name = "tbl_room")
 data class ChatRoom(
 
-    @OneToMany(mappedBy = "chatRoom")
-    var joiner: MutableList<ChatRoomJoiner> = mutableListOf(),
-
     @Column(name = "room_name", nullable = false)
     val name: String,
+
+    @OneToMany(mappedBy = "chatRoom")
+    var joiner: MutableList<ChatRoomJoiner> = mutableListOf(),
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
